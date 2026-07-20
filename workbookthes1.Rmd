@@ -23,3 +23,37 @@ When you save the notebook, an HTML file containing the code and output will be 
 
 The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
 
+```{r}
+#making a graph of the differing speed of possible pheics to ECs, split by DGs
+
+ECSpeed |>
+  ggplot(aes(x = date_firstEC, y = DaystoEC, color = DG)) +
+  geom_point() +
+  geom_text(aes(label = Event), size = 2, vjust = -1) +
+  geom_text(aes(label = DaystoEC), size = 2, vjust = 2)
+```
+
+```{r}
+#making a graph of the differing speed of possible pheics to ECs for each DG
+
+ECSpeed_Chan |>
+  ggplot(aes(x = date_firstEC, y = DaystoEC), color = "red") +
+  geom_point() +
+  geom_text(aes(label = Event), size = 2, vjust = -1) +
+  geom_text(aes(label = DaystoEC), size = 2, vjust = 2)
+
+ECSpeed_Gheb |>
+  ggplot(aes(x = date_firstEC, y = DaystoEC), color = "lightblue") +
+  geom_point() +
+  geom_text(aes(label = Event), size = 2, vjust = -1) +
+  geom_text(aes(label = DaystoEC), size = 2, vjust = 2)
+```
+
+```{r}
+#chart illustrating additional delay in dec caused by IHR ECs during Gheb's tenure
+
+ECSpeed_Gheb |>
+  ggplot(aes(fill = ))
+
+```
+
