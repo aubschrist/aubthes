@@ -29,8 +29,16 @@ The preview shows you a rendered HTML copy of the contents of the editor. Conseq
 ECSpeed |>
   ggplot(aes(x = date_firstEC, y = DaystoEC, color = DG)) +
   geom_point() +
-  geom_text(aes(label = Event), size = 2, vjust = -1) +
-  geom_text(aes(label = DaystoEC), size = 2, vjust = 2)
+  geom_text(aes(label = Event), size = 4, vjust = -1, show.legend = F) +
+  geom_text(aes(label = DaystoEC), size = 4, vjust = 2, show.legend = F) +
+  labs(
+    title = "Figure 4",
+    subtitle = "DG responsiveness by # days from outset before each outbreak received its first IHR EC meeting",
+    x = "Days from outset of outbreak to first EC meeting",
+    y = "Date of first EC meeting",
+    caption = "Each outbreak labeled by shortened name above and # of days from outset to first EC meeting below each point."
+  ) +
+  theme_linedraw()
 ```
 
 ```{r}
@@ -57,3 +65,57 @@ ECSpeed_Gheb |>
 
 ```
 
+```{r}
+#chart illustrating strange distribution of ECs among epidemiological data
+
+ECorNO |> filter(adjCases < 9000) |>
+  ggplot(aes(x = adjCases, y = roughIFR, color = ECyn)) +
+  geom_point() +
+  labs(
+    title = "Figure 1",
+    subtitle = "Morbidity vs. spread of outbreaks at time of first EC or comparable point",
+    x = "Cases per day from outbreak outset to EC (or comparable)",
+    y = "Infection Fatality Rate (deaths / cases)",
+    color = "EC"
+  )
+```
+
+```{r}
+#chart illustrating distribution of timing in responsiveness
+
+ECSpeed |>
+  ggplot(aes(x = adjCases, y = DaystoEC, color = PHEIC)) +
+  geom_point() +
+  labs(
+    title = "Figure 2",
+    subtitle = "DG Responsiveness vs. Spread: Days to EC vs Cases per day",
+    x = "Cases per day from outbreak outset to EC",
+    y = "Days to EC"
+  )
+
+ECSpeed |>
+  ggplot(aes(x = roughIFR, y = DaystoEC, color = PHEIC)) +
+  geom_point() +
+  labs(
+    title = "Figure 2",
+    subtitle = "DG Responsiveness vs. Morbidity: Days to EC vs Infection Fatality Rate (IFR)",
+    x = "IFR (total suspected deaths / suspected cases)",
+    y = "Days to EC"
+  )
+```
+```{r}
+#chart illustrating strange distribution of ECs among epidemiological data
+
+ECSpeed |>
+  ggplot(aes(x = adjCases, y = DaystoEC, color = roughIFR)) +
+  geom_point() +
+  labs(
+    title = "Figure 2",
+    subtitle = "DG Responsiveness vs. Epidemiological Data: Days to EC vs Cases per day, colored by IFR*",
+    x = "Cases per day from outbreak outset to EC",
+    y = "Days to EC",
+    color = "IFR",
+    caption = "\n*Infection Fatality Rate, total suspected deaths divided by total suspected cases"
+  ) +
+  scale_color_gradient(low = "black", high = "red")
+```
